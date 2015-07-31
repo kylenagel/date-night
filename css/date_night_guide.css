@@ -1,0 +1,255 @@
+/*
+http://www.colourlovers.com/palette/164357/Date_Night
+*/
+::-webkit-input-placeholder {color: rgba(0,0,0,0.2);}
+:-moz-placeholder { /* Firefox 18- */color: rgba(0,0,0,0.2);}
+::-moz-placeholder {  /* Firefox 19+ */color: rgba(0,0,0,0.2);}
+:-ms-input-placeholder {color: rgba(0,0,0,0.2);}
+.dng_back_to_packages {}
+.dng_back_to_packages_button {
+	background: #A9D140;
+	padding: 14px 21px;
+	text-align: center;
+	display: inline-block;
+	cursor: pointer;
+	transition: 300ms;
+	-moz-transition: 300ms;
+	-webkit-transition: 300ms;
+	opacity: 0.8;
+}
+.dng_back_to_packages_button:hover {
+	opacity: 1.0;
+}
+.dng_back_to_packages_button span {
+	color: white;
+}
+.dng_back_to_packages .text {
+	font: 14px 'Open Sans', sans-serif;
+	margin: 0px 0px 0px 3px;
+}
+#dng_banner {
+	margin-bottom: 21px;
+}
+#dng_banner .label_container {}
+#dng_banner .label_container .label {
+	display: inline;
+	background: #603765;
+	font: bold 18px 'Oswald', sans-serif;
+	line-height: 1.1em;
+	padding: 7px 14px;
+	color: white;
+	text-align: center;
+}
+#dng_banner h1 {
+	text-align: center;
+	font-size: 84px;
+	margin: 21px 0px;
+}
+#dng_body {
+	margin-top: 35px;
+}
+#dng_container {
+	max-width: 1200px;
+}
+#dng_container h1,
+#dng_container h2,
+#dng_container h3,
+#dng_container h4,
+#dng_container h5,
+#dng_container h6 {
+	font-family: 'Oswald', sans-serif;
+	line-height: 1.1em;
+}
+#dng_container p,
+#dng_container li,
+#dng_container td {
+	font: 14px 'Open Sans', sans-serif;
+	line-height: 1.5em;
+}
+#dng_intro {
+	width: 70%;
+	margin: 14px auto;
+}
+#dng_intro p {
+	font-style: italic;
+	font-size: 1.1em;
+}
+#dng_map_container {
+	float: right;
+	width: 50%;
+}
+#dng_map {
+	width: 100%;
+	height: 400px;
+	border: solid thin rgba(0,0,0,0.1);
+	box-sizing: border-box;
+	box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+}
+#dng_package_photo {
+    box-sizing: border-box;
+    background: #F5F5F5;
+    margin: 14px 0px;
+    padding: 7px;
+    box-shadow: 2px 2px 1px rgba(0,0,0,0.3);
+}
+#dng_package_photo img {}
+#dng_package_text {
+	float: left;
+	width: 45%;
+}
+#dng_packages_container {}
+#dng_packages_container ul {
+	margin: 0px;
+	padding: 0px;
+}
+#dng_packages_container ul li {
+	display: inline-block;
+	width: 24%;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border: solid thin rgba(0,0,0,0.1);
+	vertical-align: top;
+	cursor: pointer;
+	transition: 300ms;
+	-moz-transition: 300ms;
+	-webkit-transition: 300ms;
+	margin-bottom: 7px;
+}
+#dng_packages_container ul li:hover .top_half {
+	background: #E6EBF1;
+}
+#dng_packages_container ul li:hover .top_half .package_name {
+	color: black;
+}
+#dng_packages_container ul li .top_half {
+	border: solid thin rgba(0,0,0,0.1);
+	background: #495F6B;
+	transition: 300ms;
+	-moz-transition: 300ms;
+	-webkit-transition: 300ms;
+}
+#dng_packages_container ul li .top_half .package_name_container {
+	display: table;
+	width: 100%;
+}
+#dng_packages_container ul li .top_half .package_name {
+	box-sizing: border-box;
+	color: white;
+	font: bold 18px 'Slabo 27px', serif;
+	line-height: 1.1em;
+	padding: 14px;
+	transition: 300ms;
+	-moz-transition: 300ms;
+	-webkit-transition: 300ms;
+	display: table-cell;
+	vertical-align: middle;
+}
+#dng_packages_container ul li .bottom_half {}
+#dng_packages_container ul li .bottom_half .bottom_half_content {
+	padding: 3px 14px 14px 14px;
+}
+#dng_packages_container ul li .bottom_half .bottom_half_content .photo {
+	margin: 7px 0px;
+}
+#dng_packages_container ul li .bottom_half .bottom_half_content .photo img {
+	box-sizing: border-box;
+	box-shadow: 0px 0px 1px rgba(0,0,0,0.6	);
+}
+#dng_packages_container ul li .bottom_half .bottom_half_content .description {
+	font-style: italic;
+	margin: 7px 0px;
+}
+#dng_packages_container ul li .bottom_half .bottom_half_content .date {
+	font-size: 0.8em;
+}
+#dng_packages_search_bar {
+	width: 84%;
+	margin: 14px auto;
+}
+#dng_packages_search_bar input {
+	width: 100%;
+	border: solid thin rgba(0,0,0,0.1);
+	border-radius: 7px;
+	-moz-border-radius: 7px;
+	-webkit-border-radius: 7px;
+	padding: 14px;
+	font: 18px 'Open Sans', sans-serif;
+}
+#dng_step_details a {
+	text-decoration: none;
+	padding: 2px;
+	border-bottom: solid 1px #A9D140;
+	cursor: pointer;
+}
+#dng_step_details a:hover {
+	background: #A9D140;
+	color: white;
+	border: none;
+}
+#dng_steps_container {
+	width: 70%;
+	margin: 14px auto;
+}
+#dng_steps_container .dng_package_name {
+	
+}
+#dng_steps_container .dng_package_name h2 {
+	font-size: 28px;
+	border-bottom: solid 2px #495F6B;
+	margin-bottom: 14px;
+	padding-bottom: 7px;
+}
+#dng_steps_container .dng_steps {}
+#dng_steps_container .dng_steps ul {
+	margin: 0px;
+	padding: 0px;
+}
+#dng_steps_container .dng_steps ul li {
+	display: block;
+	margin: 7px 0px;
+	border: solid thin rgba(0,0,0,0.1);
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	cursor: pointer;
+}
+#dng_steps_container .dng_steps ul li:hover .dng_step_left_column {
+	background: rgba(73,95,107,1.0);
+}
+#dng_steps_container .dng_steps ul li .dng_step_table {
+	display: table;
+	width: 100%;
+	border-collapse: collapse;
+}
+#dng_steps_container .dng_steps ul li .dng_step_column {
+	display: table-cell;
+	vertical-align: top;
+	padding: 14px;
+}
+#dng_steps_container .dng_steps ul li .dng_step_left_column {
+	background: rgba(73,95,107,0.5);
+}
+#dng_steps_container .dng_steps ul li .dng_step_left_column.active_step {
+	background: rgba(73,95,107,1.0);
+}
+#dng_steps_container .dng_steps ul li .dng_step_left_column .dng_step_left_column_content {
+	display: table;
+	width: 100%;
+}
+#dng_steps_container .dng_steps ul li .dng_step_left_column .dng_step_left_column_content .dng_step_number {
+	display: table-cell;
+	padding: 7px;
+	text-align: center;
+	font: bold 21px 'Oswald', sans-serif;
+	color: white;
+}
+#dng_steps_container .dng_steps ul li .dng_step_right_column {}
+#dng_steps_container .dng_steps ul li .dng_step_right_column .dng_step_right_column_content {}
+#dng_steps_container .dng_steps ul li .dng_step_right_column .dng_step_right_column_content .dng_step_name {
+	font: bold 18px 'Slabo 27px', serif;
+}
+#dng_steps_container .dng_steps ul li .dng_step_right_column .dng_step_right_column_content .dng_step_location {
+	font-style: italic;
+	font-size: 0.8em;
+}

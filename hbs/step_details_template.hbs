@@ -1,0 +1,5 @@
+{{#each step}}
+	<h3>{{stepname}}</h3>
+	<p><strong>Where:</strong> {{locationname}}{{#if locationaddress}}, <a href="https://www.google.com/maps?q={{locationaddress}}" target="_blank">{{locationaddress}}</a>{{/if}}</p>
+	<div class="description">{{format_description description}}</div>
+{{/each}}

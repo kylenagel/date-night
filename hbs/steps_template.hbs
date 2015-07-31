@@ -1,0 +1,58 @@
+<div id="dng_steps_container">
+	
+	<div class="dng_back_to_packages">
+		<div class="dng_back_to_packages_button">
+			<span class="fa fa-arrow-left"></span>
+			<span class="text" onclick="loadPackagesTemplate()">BACK TO PACKAGES</span>
+		</div>
+	</div>
+
+	{{#each package}}
+	<div class="dng_package_name">
+		<h2>{{packagename}}</h2>
+	</div>
+
+	{{#if image}}
+	<div id="dng_package_photo">
+		<img src="{{edit_steps_view_photo image}}" alt="{{packagename}}" width="100%">
+	</div>
+	{{/if}}
+	{{/each}}
+
+	<div id="dng_package_content">
+
+		<div id="dng_package_text">
+
+			<div class="dng_steps">
+				<ul>
+					{{#each steps}}
+					<li onclick="showStepDetails('{{packageid}}', '{{stepid}}')">
+						<div class="dng_step_table">
+							<div class="dng_step_left_column dng_step_column">
+								<div class="dng_step_left_column_content">
+									<div class="dng_step_number">{{stepid}}</div>
+								</div>
+							</div>
+							<div class="dng_step_right_column dng_step_column">
+								<div class="dng_step_right_column_content">
+									<div class="dng_step_name">{{stepname}}</div>
+									<div class="dng_step_location">{{locationname}}</div>
+								</div>
+							</div>
+						</div>
+					</li>
+					{{/each}}
+				</ul>
+			</div>
+
+			<div id="dng_step_details"></div>
+
+		</div>
+
+		<div id="dng_map_container">
+			<div id="dng_map"></div>
+		</div>
+
+	</div>
+
+</div>
