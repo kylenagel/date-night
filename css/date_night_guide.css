@@ -74,17 +74,6 @@ http://www.colourlovers.com/palette/164357/Date_Night
 	font-style: italic;
 	font-size: 1.1em;
 }
-#dng_map_container {
-	float: right;
-	width: 50%;
-}
-#dng_map {
-	width: 100%;
-	height: 400px;
-	border: solid thin rgba(0,0,0,0.1);
-	box-sizing: border-box;
-	box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
-}
 #dng_package_photo {
     box-sizing: border-box;
     background: #F5F5F5;
@@ -93,10 +82,6 @@ http://www.colourlovers.com/palette/164357/Date_Night
     box-shadow: 2px 2px 1px rgba(0,0,0,0.3);
 }
 #dng_package_photo img {}
-#dng_package_text {
-	float: left;
-	width: 45%;
-}
 #dng_packages_container {}
 #dng_packages_container ul {
 	margin: 0px;
@@ -117,10 +102,7 @@ http://www.colourlovers.com/palette/164357/Date_Night
 	margin-bottom: 7px;
 }
 #dng_packages_container ul li:hover .top_half {
-	background: #E6EBF1;
-}
-#dng_packages_container ul li:hover .top_half .package_name {
-	color: black;
+	opacity: 0.6;
 }
 #dng_packages_container ul li .top_half {
 	border: solid thin rgba(0,0,0,0.1);
@@ -176,6 +158,26 @@ http://www.colourlovers.com/palette/164357/Date_Night
 	padding: 14px;
 	font: 18px 'Open Sans', sans-serif;
 }
+.dng_step_column {
+	display: inline-block;
+	box-sizing: border-box;
+	vertical-align: top;
+}
+.dng_step_left_column {
+	width: 50%;
+	padding-right: 14px;
+}
+.dng_step_right_column {
+	width: 49%;
+	padding-left: 14px;
+}
+.dng_step_map {
+	width: 100%;
+	height: 400px;
+	border: solid thin rgba(0,0,0,0.1);
+	box-sizing: border-box;
+	box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+}
 #dng_step_details a {
 	text-decoration: none;
 	padding: 2px;
@@ -200,56 +202,52 @@ http://www.colourlovers.com/palette/164357/Date_Night
 	margin-bottom: 14px;
 	padding-bottom: 7px;
 }
-#dng_steps_container .dng_steps {}
-#dng_steps_container .dng_steps ul {
+#dng_steps {}
+#dng_steps ul {
 	margin: 0px;
 	padding: 0px;
 }
-#dng_steps_container .dng_steps ul li {
+#dng_steps ul li {
 	display: block;
-	margin: 7px 0px;
+	margin-bottom: 21px;
+}
+#dng_steps ul li .dng_step_table {
+	display: table;
+	width: 100%;
+	border-collapse: collapse;
 	border: solid thin rgba(0,0,0,0.1);
 	border-radius: 3px;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
-	cursor: pointer;
 }
-#dng_steps_container .dng_steps ul li:hover .dng_step_left_column {
-	background: rgba(73,95,107,1.0);
-}
-#dng_steps_container .dng_steps ul li .dng_step_table {
-	display: table;
-	width: 100%;
-	border-collapse: collapse;
-}
-#dng_steps_container .dng_steps ul li .dng_step_column {
+#dng_steps ul li .dng_step_table_column {
 	display: table-cell;
 	vertical-align: top;
 	padding: 14px;
 }
-#dng_steps_container .dng_steps ul li .dng_step_left_column {
-	background: rgba(73,95,107,0.5);
+#dng_steps ul li .dng_step_table_left_column {
+	background: rgba(73,95,107,1);
 }
-#dng_steps_container .dng_steps ul li .dng_step_left_column.active_step {
+#dng_steps_container .dng_steps ul li .dng_step_table_left_column.active_step {
 	background: rgba(73,95,107,1.0);
 }
-#dng_steps_container .dng_steps ul li .dng_step_left_column .dng_step_left_column_content {
+#dng_steps ul li .dng_step_table_left_column .dng_step_table_left_column_content {
 	display: table;
 	width: 100%;
 }
-#dng_steps_container .dng_steps ul li .dng_step_left_column .dng_step_left_column_content .dng_step_number {
+#dng_steps ul li .dng_step_table_left_column .dng_step_table_left_column_content .dng_step_number {
 	display: table-cell;
 	padding: 7px;
 	text-align: center;
 	font: bold 21px 'Oswald', sans-serif;
 	color: white;
 }
-#dng_steps_container .dng_steps ul li .dng_step_right_column {}
-#dng_steps_container .dng_steps ul li .dng_step_right_column .dng_step_right_column_content {}
-#dng_steps_container .dng_steps ul li .dng_step_right_column .dng_step_right_column_content .dng_step_name {
+#dng_steps ul li .dng_step_table_right_column {}
+#dng_steps ul li .dng_step_table_right_column .dng_step_table_right_column_content {}
+#dng_steps ul li .dng_step_table_right_column .dng_step_table_right_column_content .dng_step_name {
 	font: bold 18px 'Slabo 27px', serif;
 }
-#dng_steps_container .dng_steps ul li .dng_step_right_column .dng_step_right_column_content .dng_step_location {
+#dng_steps ul li .dng_step_table_right_column .dng_step_table_right_column_content .dng_step_location {
 	font-style: italic;
 	font-size: 0.8em;
 }

@@ -148,9 +148,8 @@ function resizeDNGPackageDescriptions() {
 }
 
 function resizeDNGStepLeftColumnWidth() {
-	var step_height = $("#dng_steps_container .dng_steps ul li .dng_step_left_column").css("height");
-	console.log(step_height);
-	$("#dng_steps_container .dng_steps ul li .dng_step_left_column").css("width", step_height);
+	var step_height = $("#dng_steps ul li .dng_step_table .dng_step_table_left_column").css("height");
+	$("#dng_steps ul li .dng_step_table .dng_step_table_left_column").css("width", step_height);
 }
 
 function loadMainView() {
@@ -195,7 +194,7 @@ function loadPackagesTemplate() {
 	});
 }
 
-function loadStepsTemplate(package, steps, locations) {
+function loadStepsTemplate(package, steps) {
 	var data = {};
 	data.package = package;
 	data.steps = steps;
@@ -206,10 +205,20 @@ function loadStepsTemplate(package, steps, locations) {
 			$("#dng_body").html(template(data));
 		}
 	})
-	.done(function() {
-		makeDNGMap(locations);
-		resizeDNGElements();
-	})
+	.then(resizeDNGElements)
+	.then(function() {
+		$(".dng_step_map").each(function() {
+			var center = $(this).attr("data-center");
+			var package_id = $(this).attr("data-package");
+			var step_id = $(this).attr("data-step");
+			var locations = dng_data.locations({packageid: package_id}, {stepid: step_id}).get();
+			console.log(center);
+			console.log(package_id);
+			console.log(step_id);
+			console.log(locations);
+			makeDNGMap(step_id, center, locations);
+		});
+	});
 }
 
 function loadStepDetailsTemplate(step) {
@@ -227,8 +236,7 @@ function loadStepDetailsTemplate(step) {
 function showPackageSteps(package_id) {
 	var this_package = dng_data.packages({packageid: package_id}).get();
 	var package_steps = dng_data.steps({packageid: package_id}).get();
-	var package_locations = dng_data.locations({packageid: package_id}).get();
-	loadStepsTemplate(this_package, package_steps, package_locations);
+	loadStepsTemplate(this_package, package_steps);
 }
 
 function showStepDetails(package_id, step_id) {

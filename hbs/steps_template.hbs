@@ -21,36 +21,37 @@
 
 	<div id="dng_package_content">
 
-		<div id="dng_package_text">
-
-			<div class="dng_steps">
-				<ul>
-					{{#each steps}}
-					<li onclick="showStepDetails('{{packageid}}', '{{stepid}}')">
+		<div id="dng_steps">
+			<ul>
+				{{#each steps}}
+				<li>
+					<!-- TEXT COLUMN -->
+					<div class="dng_step_left_column dng_step_column">
+						<!-- STEP NUMBER BAR -->
 						<div class="dng_step_table">
-							<div class="dng_step_left_column dng_step_column">
-								<div class="dng_step_left_column_content">
+							<div class="dng_step_table_left_column dng_step_table_column">
+								<div class="dng_step_table_left_column_content">
 									<div class="dng_step_number">{{stepid}}</div>
 								</div>
 							</div>
-							<div class="dng_step_right_column dng_step_column">
-								<div class="dng_step_right_column_content">
+							<div class="dng_step_table_right_column dng_step_table_column">
+								<div class="dng_step_table_right_column_content">
 									<div class="dng_step_name">{{stepname}}</div>
 									<div class="dng_step_location">{{locationname}}</div>
 								</div>
 							</div>
 						</div>
-					</li>
-					{{/each}}
-				</ul>
-			</div>
-
-			<div id="dng_step_details"></div>
-
-		</div>
-
-		<div id="dng_map_container">
-			<div id="dng_map"></div>
+						<!-- STEP DESCRIPTION -->
+						<div class="dng_step_details">{{format_description description}}</div>
+					</div>
+					<!-- MAP COLUMN -->
+					<div class="dng_step_right_column dng_step_column">
+						<!-- MAP COLUMN -->
+						<div id="dng_map_{{stepid}}" class="dng_step_map" data-package="{{packageid}}" data-step="{{stepid}}" data-center="{{mapcenter}}"></div>
+					</div>
+				</li>
+				{{/each}}
+			</ul>
 		</div>
 
 	</div>

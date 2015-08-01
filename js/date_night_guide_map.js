@@ -1,13 +1,19 @@
 var dng_map;
 var dng_markers_layer;
 
-function makeDNGMap(locations) {
+console.log('I am the file with the map function!');
+
+function makeDNGMap(step, center, locations) {
+
+	console.log(step);
+	console.log(center);
+	console.log(locations);
 
 	L.mapbox.accessToken = 'pk.eyJ1Ijoia3lsZW5hZ2VsIiwiYSI6ImRoU3g5WU0ifQ.ATUrmLvotebx2ec5M_XtUg';
 
-	dngmap = L.map('dng_map', {
-		center: [39.762734, -84.189798],
-		zoom: 12,
+	dngmap = L.map('dng_map_'+step, {
+		center: [Number(center.split(", ")[0]), Number(center.split(", ")[1])],
+		zoom: 16,
 	});
 
 	L.mapbox.tileLayer('mapbox.streets').addTo(dngmap);
@@ -36,6 +42,6 @@ function makeDNGMap(locations) {
 
 	dng_markers_layer.addTo(dngmap);
 
-	dngmap.fitBounds(dng_markers_layer.getBounds());
+	// dngmap.fitBounds(dng_markers_layer.getBounds());
 
 };
