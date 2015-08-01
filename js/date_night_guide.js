@@ -271,6 +271,7 @@ function changeDNGProperties(search_string, start, limit, sort_order) {
 }
 
 function filterPackages() {
+	$("#dng_packages_geolocation_search_input").val('');
 	var filtered_packages = TAFFY(dng_data.packages({tags: {'likenocase': dng_data.search_string}}, {active: 'y'}).sort_by_date("entered", dng_data.sort_order));
 	filtered_packages = filtered_packages().start(dng_data.start).limit(dng_data.limit).get();
 	dng_data.filtered_packages = filtered_packages;

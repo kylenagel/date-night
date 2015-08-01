@@ -1,8 +1,6 @@
 var dng_map;
 var dng_markers_layer;
 
-console.log('I am the file with the map function!');
-
 function makeDNGMap(step, center, locations) {
 
 	console.log(step);
