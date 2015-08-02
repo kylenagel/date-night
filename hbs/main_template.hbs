@@ -14,17 +14,13 @@
 <!-- SEARCH BAR CONTAINERS -->
 <div id="dng_packages_search_container">
 	<div id="dng_packages_text_search_bar">
-		<input type="text" onkeyup="changeDNGProperties(this.value, '', '', '')" placeholder="Search for keyword, city, activity, etc.">
+		<input type="text" onkeyup="changeDNGSearchString(this.value) " placeholder="Search for keyword, city, activity, etc.">
 	</div>
-
-	<div class="or">- or -</div>
 
 	<div id="dng_packages_geolocation_search_bar">
 		<div class="bar_line">
-			<p>Within <input type="text" id="dng_packages_geolocation_search_input"> miles of your location</p>
-			<div id="dng_packages_geolocation_search_submit" onclick="getLocation($('#dng_packages_geolocation_search_input').val());">SEARCH!</div>
+			<p>Within <input type="text" id="dng_packages_geolocation_search_input" onchange="changeDNGDistance(this.value)"> miles of your location</p>
 		</div>
-		<div id="dng_no_geolocation"></div>
 	</div>
 </div>
 

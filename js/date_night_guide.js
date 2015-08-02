@@ -19,9 +19,6 @@ var cmgstylesheets = [
 
 window.onresize = resizeDNGElements;
 
-// SPREADSHEET URL
-var gsURL = 'https://docs.google.com/spreadsheets/d/1DW2yOv2CmiSFyLWyWMZ1-XbZ_XWlc09s1KseECfFpg8/edit#gid=0';
-
 // THIS VARIABLE HOLDS THE CACHE FILE NAMES TO USE IN
 // PARAMETER WITH CACHER SCRIPT
 var cacher_file_names = [
@@ -41,10 +38,14 @@ var dng_data = {
 	limit: 12,
 	search_string: '',
 	sort_order: 'newest',
+	google_sheet_url: 'https://docs.google.com/spreadsheets/d/1DW2yOv2CmiSFyLWyWMZ1-XbZ_XWlc09s1KseECfFpg8/edit#gid=0',
+	user_lat: '',
+	user_lng: '',
+	distance: 100,
 }
 
 // CALL FUNCTION THAT BEGINS PROCESS OF GETTING DATA
-getGSWorksheetIDs(gsURL);
+getGSWorksheetIDs(dng_data.google_sheet_url);
 // LOAD THE MAIN PAGE VIEW ONCE DATA IS CONFIRMED IN dng_data VARIABLE
 loadMainView();
 
@@ -159,9 +160,9 @@ function loadMainView() {
 		dng_data.packages = TAFFY(dng_data.packages);
 		dng_data.steps = TAFFY(dng_data.steps);
 		dng_data.locations = TAFFY(dng_data.locations);
-		console.log(dng_data);
 		loadMainTemplate();
-		filterPackages();
+		getLocation();
+		setTimeout(filterPackages, 1000);
 	}
 }
 
@@ -179,7 +180,7 @@ function loadMainTemplate() {
 
 function loadPackagesTemplate() {
 	var data = {};
-	data.packages = dng_data.filtered_packages;
+	data.packages = dng_data.current_filtered_packages;
 	$.ajax({
 		url: 'hbs/packages_template.hbs',
 		success: function(template) {
@@ -212,25 +213,9 @@ function loadStepsTemplate(package, steps) {
 			var package_id = $(this).attr("data-package");
 			var step_id = $(this).attr("data-step");
 			var locations = dng_data.locations({packageid: package_id}, {stepid: step_id}).get();
-			console.log(center);
-			console.log(package_id);
-			console.log(step_id);
-			console.log(locations);
 			makeDNGMap(step_id, center, locations);
 		});
 	});
-}
-
-function loadStepDetailsTemplate(step) {
-	var data = {}
-	data.step = step;
-	$.ajax({
-		url: 'hbs/step_details_template.hbs',
-		success: function(template) {
-			template = Handlebars.compile(template);
-			$("#dng_step_details").html(template(data));
-		}
-	})
 }
 
 function showPackageSteps(package_id) {
@@ -239,43 +224,90 @@ function showPackageSteps(package_id) {
 	loadStepsTemplate(this_package, package_steps);
 }
 
-function showStepDetails(package_id, step_id) {
-	var this_step = dng_data.steps({packageid: package_id}, {stepid: step_id}).get();
-	var coords = this_step[0]['mapcenter'].split(", ");
-	loadStepDetailsTemplate(this_step);
-	dngmap.panTo([Number(coords[0]), Number(coords[1])]);
-	// IF THERE IS MORE THAN ONE MARKER, DON'T OPEN INFOWINDOWS
-	if (dng_data.locations({packageid: package_id}, {stepid: step_id}).get().length == 1) {
-		dng_markers_layer.eachLayer(function(marker) {
-			if (marker.options.step_id == step_id) {
-				marker.openPopup();
-			}
-		});
-	}
-	$("#dng_steps_container .dng_steps ul li .dng_step_left_column").removeClass("active_step");
-	$("#dng_steps_container .dng_steps ul li:nth-child("+Number(step_id)+") .dng_step_left_column").addClass("active_step");
+function changeDNGSearchString(string) {
+	dng_data.search_string = string;
+	filterPackages();
 }
 
-function changeDNGProperties(search_string, start, limit, sort_order) {
-	dng_data.search_string = search_string;
-	if (start) {
-		dng_data.start = start;
-	}
-	if (limit) {
-		dng_data.limit = limit;
-	}
-	if (sort_order) {
-		dng_data.sort_order = sort_order;
+function changeDNGDistance(distance) {
+	if (distance) {
+		dng_data.distance = Number(distance);
+	} else {
+		dng_data.distance = 100;
 	}
 	filterPackages();
 }
 
+// FILTER ALL PACKAGES BY:
+// search string
+// whether active
+// sorting by date
+// start index
+// limit
 function filterPackages() {
-	$("#dng_packages_geolocation_search_input").val('');
-	var filtered_packages = TAFFY(dng_data.packages({tags: {'likenocase': dng_data.search_string}}, {active: 'y'}).sort_by_date("entered", dng_data.sort_order));
+	if (dng_data.user_lat && dng_data.user_lng) {
+		// ===== START DISTANCE SEARCH =====
+		// INIT VARIABLE FOR MATCHING PACKAGE IDS
+		var matching_package_ids = []
+		var matching_packages = []
+		// GET ALL CURRENT FILTERED PACKAGES
+		var all_locations = dng_data.locations().get();
+		// LOOP THROUGH ALL LOCATIONS TO SAVE PACKAGE ID IF THE DISTANCE IS INSIDE DESIGNATED DISTANCE
+		for (var i=0; i<all_locations.length; i++) {
+			var dest_lat = Number(all_locations[i].latlng.split(", ")[0]);
+			var dest_lng = Number(all_locations[i].latlng.split(", ")[1]);
+			var this_distance = calculateDistance(dng_data.user_lat, dng_data.user_lng, dest_lat, dest_lng);
+			if (this_distance <= dng_data.distance && matching_package_ids.indexOf(all_locations[i].packageid) == -1) {
+				matching_package_ids.push(all_locations[i].packageid);
+			}
+		}
+		// LOOP THROUGH PACKAGE IDs THAT MATCH DISTANCE TO GET THEIR PACKAGE DATA
+		for (var i=0; i<matching_package_ids.length; i++) {
+			var this_matching_package = dng_data.packages({packageid: matching_package_ids[i]}).get()[0];
+			matching_packages.push(this_matching_package);
+		}
+		// INIT NEW VARIABLE TO SAVE THE FILTERED PACKAGES
+		var filtered_packages = TAFFY(matching_packages);
+		// ===== END DISTANCE SEARCH =====
+	} else {
+		var filtered_packages = TAFFY(dng_data.packages().get());
+	}
+	// MATCH SEARCH STRING AND WHETHER ACTIVE AND THEN SORT BY DATE
+	filtered_packages = TAFFY(filtered_packages({tags: {'likenocase': dng_data.search_string}}, {active: 'y'}).sort_by_date("entered", dng_data.sort_order));
+	// PULL FROM EDITED PACKAGES USING START INDEX AND LIMIT
 	filtered_packages = filtered_packages().start(dng_data.start).limit(dng_data.limit).get();
-	dng_data.filtered_packages = filtered_packages;
+	// SAVED THE NEW filtered_packages DATA INTO GLOBAL OBJECT
+	dng_data.current_filtered_packages = filtered_packages;
+	// LOAD THE PACKAGES TEMPLATE
 	loadPackagesTemplate();
+}
+
+// SAVE USER LATITUDE AND LONGITUDE INTO MAIN VARIABLE
+function getLocation() {
+	navigator.geolocation.getCurrentPosition(function(position) {
+		dng_data.user_lat = Number(position.coords.latitude);
+		dng_data.user_lng = Number(position.coords.longitude);
+		$("#dng_packages_geolocation_search_bar").show();
+	});
+}
+
+// FUNCTION THAT CALCULATES DISTANCE BETWEEN TWO LAT, LNG COORDINATES IN MILES
+// FROM: http://www.html5rocks.com/en/tutorials/geolocation/trip_meter/
+function calculateDistance(lat1, lon1, lat2, lon2) {
+	var R = 3959; // km
+	var dLat = (lat2 - lat1).toRad();
+	var dLon = (lon2 - lon1).toRad(); 
+	var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+	      Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) * 
+	      Math.sin(dLon / 2) * Math.sin(dLon / 2); 
+	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)); 
+	var d = R * c;
+	return d;
+}
+
+// FROM: http://www.html5rocks.com/en/tutorials/geolocation/trip_meter/
+Number.prototype.toRad = function() {
+  return this * Math.PI / 180;
 }
 
 Handlebars.registerHelper('format_description', function(d) {

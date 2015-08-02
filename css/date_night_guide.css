@@ -146,6 +146,7 @@ http://www.colourlovers.com/palette/164357/Date_Night
 	font-size: 0.8em;
 }
 #dng_packages_geolocation_search_bar {
+	display: none;
 	text-align: center;
 }
 #dng_packages_geolocation_search_bar .bar_line {}
@@ -165,6 +166,7 @@ http://www.colourlovers.com/palette/164357/Date_Night
 }
 #dng_packages_geolocation_search_bar .bar_line p {
 	padding: 0px;
+	margin: 0px;
 	font: 18px 'Open Sans', sans-serif;
 	color: rgba(0,0,0,0.7);
 }
