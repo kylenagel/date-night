@@ -28,7 +28,7 @@ http://www.colourlovers.com/palette/164357/Date_Night
 	margin: 0px 0px 0px 3px;
 }
 #dng_banner {
-	margin-bottom: 21px;
+	margin: 21px 0px;
 }
 #dng_banner .label_container {}
 #dng_banner .label_container .label {
@@ -298,4 +298,83 @@ http://www.colourlovers.com/palette/164357/Date_Night
 #dng_steps ul li .dng_step_table_right_column .dng_step_table_right_column_content .dng_step_location {
 	font-style: italic;
 	font-size: 0.8em;
+}
+@media all and (max-width: 1000px) {
+	#dng_steps_container {
+    	width: 85%;
+    }
+}
+@media all and (max-width: 800px) {
+	#dng_banner h1 {
+	    font-size: 77px;	
+	}
+	#dng_packages_container ul li {
+		width: 33%;
+	}
+	#dng_steps_container {
+    	width: 100%;
+    }
+    #dng_container {
+		box-sizing: border-box;
+		padding: 0px 7px;
+	}
+	#dng_container p {
+		margin: 14px 0px;
+	}
+}
+@media all and (max-width: 750px) {
+	#dng_banner h1 {
+	    font-size: 70px;
+	}
+}
+@media all and (max-width: 700px) {
+	#dng_banner h1 {
+	    font-size: 63px;
+	}
+	#dng_packages_text_search_bar {
+		width: 100%;
+	}
+	#dng_packages_geolocation_search_bar .bar_line input {
+		width: 60px;
+		padding: 3px;
+	}
+	#dng_packages_geolocation_search_bar .bar_line p {
+    	font-size: 14px;
+    }
+}
+@media all and (max-width: 650px) {
+	#dng_banner h1 {
+	    font-size: 56px;
+	}
+	#dng_packages_container ul li {
+		width: 49%;
+	}
+	.dng_step_column {
+		display: block;
+	}
+	.dng_step_right_column {
+		width: 100%;
+		padding-left: 0px;
+	}
+	.dng_step_left_column {
+		width: 100%;
+		padding-left: 0px;
+	}
+	#dng_steps ul li {
+		margin: 21px 0px;
+	}
+}
+@media all and (max-width: 600px) {
+	#dng_banner h1 {
+	    font-size: 49px;
+	}
+	#dng_banner .label_container .label {
+    	display: block;
+    }
+}
+@media all and (max-width: 550px) {
+
+}
+@media all and (max-width: 500px) {
+
 }

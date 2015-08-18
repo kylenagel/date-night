@@ -80,13 +80,13 @@ function getGSData(sheet, cache_file_name, key, worksheet_id) {
 		success: function(result) {
 			// IF IT'S THE FIRST SHEET
 			if (sheet == 0) {
-				dng_data.packages = parseGSData(result.feed.entry);
+				dng_data.packages = TAFFY(parseGSData(result.feed.entry));
 			// OR, IF IT'S THE SECOND SHEET
 			} else if (sheet == 1) {
-				dng_data.steps = parseGSData(result.feed.entry);
+				dng_data.steps = TAFFY(parseGSData(result.feed.entry));
 			// OR, IF IT'S THE THIRD SHEET
 			} else if (sheet == 2) {
-				dng_data.locations = parseGSData(result.feed.entry);
+				dng_data.locations = TAFFY(parseGSData(result.feed.entry));
 			}
 		}
 	});
@@ -154,12 +154,9 @@ function resizeDNGStepLeftColumnWidth() {
 }
 
 function loadMainView() {
-	if (!dng_data.packages && !dng_data.steps && !dng_data.locations) {
-		setTimeout(function() {loadMainView();},200)
+	if (typeof dng_data.packages != 'function' && typeof dng_data.steps != 'function' && typeof dng_data.locations != 'function') {
+		setTimeout(loadMainView,200);
 	} else {
-		dng_data.packages = TAFFY(dng_data.packages);
-		dng_data.steps = TAFFY(dng_data.steps);
-		dng_data.locations = TAFFY(dng_data.locations);
 		loadMainTemplate();
 		getLocation();
 		setTimeout(filterPackages, 1000);
@@ -215,7 +212,14 @@ function loadStepsTemplate(package, steps) {
 			var locations = dng_data.locations({packageid: package_id}, {stepid: step_id}).get();
 			makeDNGMap(step_id, center, locations);
 		});
-	});
+	})
+	.then(function() {
+		if (window.innerWidth < 800) {
+			$('html,body').animate({
+				scrollTop: $("#dng_body").offset().top - 100
+			}, 800);
+		}
+	})
 }
 
 function showPackageSteps(package_id) {
@@ -252,6 +256,8 @@ function filterPackages() {
 		var matching_packages = []
 		// GET ALL CURRENT FILTERED PACKAGES
 		var all_locations = dng_data.locations().get();
+		console.log('Current lat: '+dng_data.user_lat);
+		console.log('Current lng: '+dng_data.user_lng);
 		// LOOP THROUGH ALL LOCATIONS TO SAVE PACKAGE ID IF THE DISTANCE IS INSIDE DESIGNATED DISTANCE
 		for (var i=0; i<all_locations.length; i++) {
 			var dest_lat = Number(all_locations[i].latlng.split(", ")[0]);
